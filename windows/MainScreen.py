@@ -127,8 +127,8 @@ class MainScreen(ctk.CTkToplevel):
             width=212,
             height=88,
             )
-        
 
+        # Cards de opções
         self.card_options(
             title="Juntar PDFs",
             subtitle="Combine e organize seus PDFs na ordem\nque preferir, de forma simples e rápida!",
@@ -170,7 +170,6 @@ class MainScreen(ctk.CTkToplevel):
                     icon_path="assets/icons/docs.png",
                     x=523, y=337
                 )
-
 
 
     def card_information(self, x, y, width, height, bg_color="", text_color="", title="", subtitle="", icon_path=""):
