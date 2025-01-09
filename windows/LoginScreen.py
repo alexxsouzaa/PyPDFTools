@@ -1,207 +1,196 @@
-import customtkinter
+import customtkinter as ctk
 from PIL import Image
 from modules.colors.palette_color import *
+from windows.MainScreen import MainScreen
 
-class LoginScreen(customtkinter.CTk):
+class LoginScreen(ctk.CTk):
     def __init__(self):
         super().__init__(fg_color="#F5F5F5")
+        
+        # Configuração da janela principal
         self.geometry("780x480+250+100")
-        self.title("PyPDFTools")
-        self.overrideredirect(False)
-        self.resizable(False, False)
+        self.title("Login - PyPDFTools")
+        self.overrideredirect(False)  # Permitir controle da janela
+        self.resizable(False, False)  # Desabilitar redimensionamento
+        self._set_appearance_mode("light") # Tema da janela
 
-        self.colors = palette_color_light
+        # Ícone da Janela
+        self.iconbitmap("assets/icons/icon_16x16.ico")
 
-        #====== Frames ======#
-        # Frame para imagem
-        self.ImagemFrame = customtkinter.CTkFrame(
+        # Paleta de cores
+        self.color_palette = palette_color_light
+
+        # === Criação dos Frames === #
+        # Frame da imagem (lado esquerdo)
+        self.frame_image = ctk.CTkFrame(
             master=self,
             height=480,
             width=464,
-            corner_radius= 6,
-            border_width=0,
-            fg_color=self.colors["purple"],
-            bg_color=self.colors["purple"]
+            corner_radius=6,
+            fg_color=self.color_palette["purple"],
+            bg_color=self.color_palette["purple"]
         )
-        self.ImagemFrame.place(x=0, y=0)
+        self.frame_image.place(x=0, y=0)
 
-        # Frame de login
-        self.AuthFrame = customtkinter.CTkFrame(
+        # Frame de autenticação (lado direito)
+        self.frame_auth = ctk.CTkFrame(
             master=self,
             height=480,
             width=316,
-            fg_color=self.colors["color_bg"],
-            bg_color=self.colors["color_bg"]
+            fg_color=self.color_palette["color_bg"],
+            bg_color=self.color_palette["color_bg"]
         )
-        self.AuthFrame.place(x=464, y=0)
+        self.frame_auth.place(x=464, y=0)
 
-        # Frame do Divisor
-        self.DivisorFrame = customtkinter.CTkFrame(
-            master=self.AuthFrame,
+        # Frame divisor (linha decorativa no frame de autenticação)
+        self.frame_divider = ctk.CTkFrame(
+            master=self.frame_auth,
             height=2,
             width=260,
             corner_radius=10,
-            fg_color=self.colors["light_gray"],
-
+            fg_color=self.color_palette["light_gray"],
         )
-        self.DivisorFrame.place(x=28, y=156)
+        self.frame_divider.place(x=28, y=156)
 
-        #====== Imagem ======#
-        self.BackgroundImagem = customtkinter.CTkImage(
+        # === Imagem de Fundo === #
+        self.background_image = ctk.CTkImage(
             light_image=Image.open("assets/images/background_login.png"),
             dark_image=Image.open("assets/images/background_login.png"),
             size=(464, 480)
         )
 
-        #====== Entrys ======#
-        # Titulo da entry de email
-        self.TitleEntryEmail = customtkinter.CTkLabel(
-            master=self.AuthFrame,
-            text="E-mail ou usuário",
-            font=('Segoe UI', 10, 'normal'),
-            text_color=self.colors["dark_gray"]
+        # Label para exibir a imagem de fundo
+        self.label_background = ctk.CTkLabel(
+            master=self,
+            image=self.background_image,
+            text=""
         )
-        self.TitleEntryEmail.place(x=28, y=184)
+        self.label_background.place(x=0, y=0)
 
-        # Entry E-mail
-        self.EmailEntry = customtkinter.CTkEntry(
-            master=self.AuthFrame,
+        # === Campos de Entrada (Entrys) === #
+        # Título do campo de email/usuário
+        self.label_email_title = ctk.CTkLabel(
+            master=self.frame_auth,
+            text="E-mail ou usuário",
+            font=('Segoe UI', 10),
+            text_color=self.color_palette["dark_gray"]
+        )
+        self.label_email_title.place(x=28, y=184)
+
+        # Campo de entrada para email/usuário
+        self.entry_email = ctk.CTkEntry(
+            master=self.frame_auth,
             border_width=0,
             corner_radius=8,
-            fg_color=self.colors["light_gray"],
-            text_color=self.colors["dark_gray"],
-            font=('Segoe UI', 10, 'normal'),
+            fg_color=self.color_palette["light_gray"],
+            text_color=self.color_palette["dark_gray"],
+            font=('Segoe UI', 10),
             height=32,
             width=260
-            )
-        self.EmailEntry.place(x=28, y=208)
-
-        # Titulo da entry de email
-        self.TitleEntrySenha = customtkinter.CTkLabel(
-            master=self.AuthFrame,
-            text="Senha",
-            font=('Segoe UI', 10, 'normal'),
-            text_color=self.colors["dark_gray"]
         )
-        self.TitleEntrySenha.place(x=28, y=246)
-        
-        # Entry Senha
-        self.SenhaEntry = customtkinter.CTkEntry(
-            master=self.AuthFrame,
+        self.entry_email.place(x=28, y=208)
+
+        # Título do campo de senha
+        self.label_password_title = ctk.CTkLabel(
+            master=self.frame_auth,
+            text="Senha",
+            font=('Segoe UI', 10),
+            text_color=self.color_palette["dark_gray"]
+        )
+        self.label_password_title.place(x=28, y=246)
+
+        # Campo de entrada para senha
+        self.entry_password = ctk.CTkEntry(
+            master=self.frame_auth,
             border_width=0,
             corner_radius=8,
-            fg_color=self.colors["light_gray"],
-            text_color=self.colors["dark_gray"],
-            font=('Segoe UI', 10, 'normal'),
+            fg_color=self.color_palette["light_gray"],
+            text_color=self.color_palette["dark_gray"],
+            font=('Segoe UI', 10),
             show='*',
             height=32,
             width=260
-            )
-        self.SenhaEntry.place(x=28, y=269)
+        )
+        self.entry_password.place(x=28, y=269)
 
-        #====== Buttons ======#
-        # Button login
-        self.LoginButton = customtkinter.CTkButton(
-            master=self.AuthFrame,
-            text="Entrar",
-            font=('Segoe UI', 12, 'bold'),
-            border_width=0,
-            corner_radius=20,
-            fg_color=self.colors["purple"],
-            hover_color=self.colors["dark_purple"],
-            height=32,
-            width=260
-            )
-        self.LoginButton.place(x=28, y=327)
-
-        #====== Labels ======#
-        # Label de titulo
-        self.TituloLabel = customtkinter.CTkLabel(
-            master=self.AuthFrame,
+        # === Textos (Labels) === #
+        # Título principal
+        self.label_welcome = ctk.CTkLabel(
+            master=self.frame_auth,
             text="Bem-vindo de volta!",
             font=('Segoe UI', 26, 'bold'),
-            text_color=self.colors["color_title"]
+            text_color=self.color_palette["color_title"]
         )
-        self.TituloLabel.place(x=28, y=80)
+        self.label_welcome.place(x=28, y=80)
 
-        # Label de subtitulo
-        self.SubtituloLabel = customtkinter.CTkLabel(
-            master=self.AuthFrame,
+        # Subtítulo
+        self.label_subtitle = ctk.CTkLabel(
+            master=self.frame_auth,
             text="Faça login para acessar sua conta.",
-            font=('Segoe UI', 10, 'normal'),
-            text_color=self.colors["dark_gray"]
+            font=('Segoe UI', 10),
+            text_color=self.color_palette["dark_gray"]
         )
-        self.SubtituloLabel.place(x=28, y=111)
+        self.label_subtitle.place(x=28, y=111)
 
-        # Label rodapé
-        self.RodapeLabel = customtkinter.CTkLabel(
-            master=self.AuthFrame,
-            text="Dúvidas ou problemas? Entre em contato\n com nosso suporte técnico.",
-            text_color=self.colors["dark_gray"],
-            font=('Segoe UI', 10, 'normal'),
+        # Rodapé com informações de suporte
+        self.label_footer = ctk.CTkLabel(
+            master=self.frame_auth,
+            text="Dúvidas ou problemas? Entre em contato\ncom nosso suporte técnico.",
+            text_color=self.color_palette["dark_gray"],
+            font=('Segoe UI', 10),
             justify="center"
         )
-        self.RodapeLabel.place(x=66, y=434)
+        self.label_footer.place(x=66, y=434)
 
-        # Label da background
-        self.BackgroundLabel = customtkinter.CTkLabel(
-            master=self,
-            image=self.BackgroundImagem,
-            text=""
+        # === Botões (Buttons) === #
+        # Botão de login
+        self.button_login = ctk.CTkButton(
+            master=self.frame_auth,
+            text="Entrar",
+            font=('Segoe UI', 12, 'bold'),
+            corner_radius=50,
+            fg_color=self.color_palette["purple"],
+            hover_color=self.color_palette["dark_purple"],
+            height=32,
+            width=260,
+            command=self.open_main_screen  # Passa a referência da função
         )
-        self.BackgroundLabel.place(x=0, y=0)
+        self.button_login.place(x=28, y=327)
 
-        #===== Switchs =====#
-        # Shitch do tema
-        self.theme_switch_var = customtkinter.StringVar(value="light")
-        self.theme_switch = customtkinter.CTkSwitch(
-            master=self.AuthFrame,
+        # === Switch para Tema === #
+        self.switch_theme_var = ctk.StringVar(value="light")
+        self.switch_theme = ctk.CTkSwitch(
+            master=self.frame_auth,
             text="",
-            command=self.theme_switch_event,
-            variable=self.theme_switch_var,
+            command=self.toggle_theme,
+            variable=self.switch_theme_var,
             onvalue="dark",
             offvalue="light",
-            hover=self.colors["light_purple"],
+            hover=self.color_palette["light_purple"],
             corner_radius=20
-            )
-        self.theme_switch.place(x=240, y=20)
+        )
+        self.switch_theme.place(x=250, y=10)
 
-    def theme_switch_event(self):
-        # Altera o tema da janela
-        self._set_appearance_mode(self.theme_switch_var.get())
+    def toggle_theme(self):
+        """Alterna o tema da aplicação (claro ou escuro)."""
+        self._set_appearance_mode(self.switch_theme_var.get())
 
-        try:
-            # Altera entre as paletas de cores "Light" e "Dark"
-            if self.theme_switch_var.get() == "light":
-                # Paleta "Light"
-                self.colors = palette_color_light
-            else:
-                # Paleta "Dark"
-                self.colors = palette_color_dark
-        except:
-            pass
+        # Atualiza a paleta de cores
+        self.color_palette = palette_color_light if self.switch_theme_var.get() == "light" else palette_color_dark
+        self.update_theme_colors()
 
-        # Atualiza o tema
-        self.update_thema()
+    def update_theme_colors(self):
+        """Atualiza as cores da interface com base na paleta de cores atual."""
+        self.frame_auth.configure(fg_color=self.color_palette["color_bg"], bg_color=self.color_palette["color_bg"])
+        self.frame_divider.configure(fg_color=self.color_palette["light_gray"])
+        self.entry_email.configure(fg_color=self.color_palette["light_gray"])
+        self.entry_password.configure(fg_color=self.color_palette["light_gray"])
+        self.label_welcome.configure(text_color=self.color_palette["color_title"])
 
-    def update_thema(self):
-        # Atualiza as cores do tema
-        self.AuthFrame.configure(fg_color=self.colors["color_bg"],  bg_color=self.colors["color_bg"])
-        self.DivisorFrame.configure(fg_color=self.colors["light_gray"],  bg_color=self.colors["light_gray"])
-        self.EmailEntry.configure(fg_color=self.colors["light_gray"])
-        self.SenhaEntry.configure(fg_color=self.colors["light_gray"])
-        self.TituloLabel.configure(text_color=self.colors["color_title"])
-
-        
+    def open_main_screen(self):
+        """Abre a tela principal após o login."""
+        MainScreen(self)
 
 
-        
-
-        
-
-
-
-
-# Inicialização da aplicação
 LoginScreen = LoginScreen()
 LoginScreen.mainloop()
