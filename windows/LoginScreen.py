@@ -190,6 +190,7 @@ class LoginScreen(ctk.CTk):
     def open_main_screen(self):
         """Abre a tela principal após o login."""
         MainScreen(self)
+        self.withdraw()
 
 
 LoginScreen = LoginScreen()
