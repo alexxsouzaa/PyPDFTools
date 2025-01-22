@@ -10,7 +10,7 @@ palette_color_light = {
     "white": "#FFFFFF",
     "black": "#000000",
     "dark_gray": "#8A8A8A",
-    "gray": "#9CA3AF",
+    "gray": "#6B7280",
     "light_gray": "#F3F4F6",
 }
 
