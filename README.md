@@ -28,11 +28,10 @@ Este projeto está em fase de reformulação, e novos recursos estão sendo plan
 
 ### Protótipos de Telas
 
-<div>
-  <img src="https://github.com/user-attachments/assets/c7ebfdf9-25bc-4c86-8c8e-97e943b61995" alt="Tela de login">
-</div>
+![Tela de login](https://github.com/user-attachments/assets/60483e2c-dc93-4584-9b3e-d76b3dbc6bfe)
 
 >Tela de login
+>
 </br>
 
 ![Tela principal](https://github.com/user-attachments/assets/18aca437-4e84-4353-98a5-93c5defc1e7a)
